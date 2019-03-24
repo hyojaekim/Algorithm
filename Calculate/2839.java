@@ -25,7 +25,6 @@ public class Main {
                 five = five - 5;
             }
         }
-
         System.out.print(result);
     }
 }
