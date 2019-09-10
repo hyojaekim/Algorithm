@@ -2,8 +2,8 @@ a = int(input())
 b = input()
 
 splitNumber = list(map(int, list(b)))
-result = 0
 ten = 1
+result = 0
 
 for number in reversed(splitNumber):
     number = a * number
