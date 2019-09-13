@@ -1,5 +1,6 @@
 # 백준 알고리즘 문제 풀이
 * 단계별로 풀어보기
-   * 사칙연산 도전하기(Calculate)
-   * for문 사용해보기(for)
-   * if문 사용해보기(if)
+   * (Calculate) - 사칙연산
+   * (for) - for문 사용
+   * (if) - if문 사용
+   * (while) - while문 사용
