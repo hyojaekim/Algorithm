@@ -1,9 +1,7 @@
 import sys
 
 value = list(map(int, sys.stdin.readline().split()))
-
 sortValue = value[0] - value[1]
-
 isMixed = False
 
 for index in range(0, (len(value)-1)):
