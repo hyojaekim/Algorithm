@@ -9,7 +9,6 @@ for number in score:
     if(maxScore < number):
         maxScore = number
 
-
 for index in range(len(score)):
     score[index] = score[index] / maxScore * 100
     totalScore += score[index]
