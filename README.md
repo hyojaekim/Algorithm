@@ -7,3 +7,4 @@
 3. (if) - if문 사용
 4. (while) - while문 사용
 5. (array) - 1차원 배열
+6. (function) - 함수 사용하기
