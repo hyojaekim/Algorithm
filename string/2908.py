@@ -8,5 +8,3 @@ if result:
     print(first)
 else:
     print(second)
-
-
