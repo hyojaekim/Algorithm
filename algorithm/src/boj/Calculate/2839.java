@@ -1,3 +1,5 @@
+package boj.Calculate;
+
 import java.util.Scanner;
 
 public class Main {
