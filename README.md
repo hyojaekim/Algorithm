@@ -1,10 +1,4 @@
-# 백준 알고리즘 문제 풀이
+# 알고리즘 문제 풀기
 
-### 단계별로 풀어보기
-
-1. (Calculate) - 사칙연산
-2. (for) - for문 사용
-3. (if) - if문 사용
-4. (while) - while문 사용
-5. (array) - 1차원 배열
-6. (function) - 함수 사용하기
+* [BOJ](https://github.com/hyojaekim/algorithm_practice/tree/master/boj)
+* [Programmers](https://github.com/hyojaekim/algorithm_practice/tree/master/programmers)
