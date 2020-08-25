@@ -4,6 +4,10 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+ * 미로 탐색
+ * (BFS) - 거리 측정
+ */
 public class BOJ2178 {
     int[] dx = {1, -1, 0, 0};
     int[] dy = {0, -0, 1, -1};

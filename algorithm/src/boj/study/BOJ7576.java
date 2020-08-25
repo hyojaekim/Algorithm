@@ -3,6 +3,10 @@ package boj.study;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+ * 토마토
+ * (BFS) - 시작점이 여러개
+ */
 public class BOJ7576 {
     int[][] box;
     int[][] dist;

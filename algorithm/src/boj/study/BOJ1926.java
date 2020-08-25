@@ -3,6 +3,10 @@ package boj.study;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+ * 그림
+ * (BFS) - 각각의 영역과 넓이 구하기
+ */
 public class BOJ1926 {
 
     int[] dx = {1, -1, 0, 0};

@@ -4,6 +4,10 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+ * 불!
+ * (BFS) - 시작점이 두 종류
+ */
 public class BOJ4179 {
     int[][] distF;
     int[][] distJ;
