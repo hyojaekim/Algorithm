@@ -1,4 +1,4 @@
-package boj.study;
+package boj.bfs;
 
 import java.util.Arrays;
 import java.util.LinkedList;
