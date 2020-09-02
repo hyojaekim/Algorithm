@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
  * 2-2. 오른쪽 아래 기둥이 있으면 true
  * 2-3. 양쪽에 보가 있으면 true
  */
-public class 블록_이동하기 {
+public class 기둥과_보_설치 {
 
     public int[][] solution(int n, int[][] build_frame) {
         Set<Frame> frames = new LinkedHashSet<>();
