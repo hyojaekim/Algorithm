@@ -37,15 +37,15 @@ public class 무지의_먹방_라이브 {
         foods.sort(Comparator.comparingInt(o -> o.time));
         return foods;
     }
-}
 
-class Food {
-    int idx;
-    int time;
+    class Food {
+        int idx;
+        int time;
 
-    public Food(int idx, int time) {
-        this.idx = idx + 1;
-        this.time = time;
+        public Food(int idx, int time) {
+            this.idx = idx + 1;
+            this.time = time;
+        }
     }
-}
 
+}

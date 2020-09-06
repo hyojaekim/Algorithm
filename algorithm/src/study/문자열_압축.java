@@ -31,29 +31,29 @@ public class 문자열_압축 {
         }
         return sb.toString();
     }
-}
 
-class Piece {
-    String s;
-    int cnt;
+    class Piece {
+        String s;
+        int cnt;
 
-    public Piece(String s) {
-        this.s = s;
-        this.cnt = 1;
-    }
+        public Piece(String s) {
+            this.s = s;
+            this.cnt = 1;
+        }
 
-    public Piece plus() {
-        this.cnt++;
-        return this;
-    }
+        public Piece plus() {
+            this.cnt++;
+            return this;
+        }
 
-    public boolean isSame(String s) {
-        return this.s.equals(s);
-    }
+        public boolean isSame(String s) {
+            return this.s.equals(s);
+        }
 
-    @Override
-    public String toString() {
-        if (cnt == 1) return s;
-        return cnt + s;
+        @Override
+        public String toString() {
+            if (cnt == 1) return s;
+            return cnt + s;
+        }
     }
 }

@@ -64,26 +64,26 @@ public class 길_찾기_게임 {
             preorder(numbers, node.right);
         }
     }
-}
 
-class Node {
-    int num;
-    int x;
-    int y;
-    Node left;
-    Node right;
+    class Node {
+        int num;
+        int x;
+        int y;
+        Node left;
+        Node right;
 
-    public Node(int[] node, int num) {
-        this.x = node[0];
-        this.y = node[1];
-        this.num = num;
-    }
+        public Node(int[] node, int num) {
+            this.x = node[0];
+            this.y = node[1];
+            this.num = num;
+        }
 
-    public boolean isEmptyLeft() {
-        return left == null;
-    }
+        public boolean isEmptyLeft() {
+            return left == null;
+        }
 
-    public boolean isEmptyRight() {
-        return right == null;
+        public boolean isEmptyRight() {
+            return right == null;
+        }
     }
 }

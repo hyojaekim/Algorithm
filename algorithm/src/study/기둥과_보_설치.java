@@ -72,29 +72,29 @@ public class 기둥과_보_설치 {
         }
         return convertedResult;
     }
-}
 
-class Frame {
-    int x;
-    int y;
-    int a;
+    class Frame {
+        int x;
+        int y;
+        int a;
 
-    public Frame(int x, int y, int a) {
-        this.x = x;
-        this.y = y;
-        this.a = a;
-    }
+        public Frame(int x, int y, int a) {
+            this.x = x;
+            this.y = y;
+            this.a = a;
+        }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Frame frame = (Frame) o;
-        return x == frame.x && y == frame.y && a == frame.a;
-    }
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Frame frame = (Frame) o;
+            return x == frame.x && y == frame.y && a == frame.a;
+        }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(x, y, a);
+        @Override
+        public int hashCode() {
+            return Objects.hash(x, y, a);
+        }
     }
 }
