@@ -20,7 +20,7 @@ public class BOJ2798_블랙잭 {
         int result = solution(n, m, cards);
         System.out.println(result);
     }
-    
+
     public static int solution(int n, int m, int[] cards) {
         int result = 0;
         cards = sort(cards);
