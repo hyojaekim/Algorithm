@@ -29,23 +29,17 @@ public class 부분집합 {
 	public List<List<Integer>> solution(List<Integer> numbers) {
 		this.result = new ArrayList<>();
 		this.numbers = numbers;
-		this.result.add(new ArrayList<>());
 
-		for (int i = 0; i < numbers.size(); i++) {
-			dfs(numbers.size(), i + 1, 0, new LinkedList<>());
-		}
+		dfs(numbers.size(), 0, new LinkedList<>());
 		return result;
 	}
 
-	private void dfs(int n, int k, int start, Queue<Integer> q) {
-		if (q.size() == k) {
-			this.result.add(new LinkedList<>(q));
-			return;
-		}
+	private void dfs(int n, int index, Queue<Integer> q) {
+		this.result.add(new LinkedList<>(q));
 
-		for (int i = start; i < n; i++) {
+		for (int i = index; i < n; i++) {
 			q.add(numbers.get(i));
-			dfs(n, k, i + 1, q);
+			dfs(n, i + 1, q);
 			q.remove(numbers.get(i));
 		}
 	}
