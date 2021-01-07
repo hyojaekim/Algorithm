@@ -7,7 +7,8 @@ import java.util.*;
 public class 네트워크딜레이타임 {
 	@Test
 	void test() {
-		int result = networkDelayTime(new int[][]{{2, 1, 1}, {2, 3, 1}, {3, 4, 1}}, 4, 2);
+//		int result = networkDelayTime(new int[][]{{2, 1, 1}, {2, 3, 1}, {3, 4, 1}}, 4, 2);
+		int result = networkDelayTime(new int[][]{{5, 2, 4}, {5, 4, 2}, {4, 3, 1}, {4, 2, 1}, {2, 1, 3}, {1, 3, 6}, {1, 4, 3}, {3, 4, 2}}, 5, 5);
 		System.out.println(result);
 	}
 
@@ -28,7 +29,7 @@ public class 네트워크딜레이타임 {
 			graph.computeIfAbsent(time[0], nn -> new ArrayList<>()).add(new int[]{time[1], time[2]});
 		}
 
-		Map<Integer, Integer> dist = new HashMap<>(); //key=정점, value=간선(소요시간)
+		Map<Integer, Integer> dist = new HashMap<>(); //해당 정점까지 비용, key=정점 / value=간선(소요시간)
 		PriorityQueue<int[]> minPQ = new PriorityQueue<>(Comparator.comparingInt(o -> o[1])); //간선(소요시간)이 작은 순서가 먼저 나온다. value=[정점, 간선(소요시간)]
 		minPQ.add(new int[]{k, 0}); //시작 정점 넣기
 
