@@ -16,7 +16,8 @@ public class 단체사진찍기 {
 
 	int count;
 	boolean[] visited;
-	Map<Character, Integer> people;
+	char[] result;
+	char[] friends = new char[]{'A', 'C', 'F', 'J', 'M', 'N', 'R', 'T'};
 
 	/**
 	 * [분류] dfs
@@ -28,20 +29,13 @@ public class 단체사진찍기 {
 	public int solution(int n, String[] data) {
 		this.count = 0;
 		this.visited = new boolean[8];
-		this.people = initPeople();
+		this.result = new char[8];
 
-		dfs(new LinkedList<>(), initConditions(data));
+		dfs(0, initConditions(data), 8);
 		return count;
 	}
 
-	private Map<Character, Integer> initPeople() {
-		Map<Character, Integer> result = new HashMap<>();
-		result.put('A', 0); result.put('C', 1); result.put('F', 2); result.put('J', 3);
-		result.put('M', 4); result.put('N', 5); result.put('R', 6); result.put('T', 7);
-		return result;
-	}
-
-	private Map<Character, List<Condition>> initConditions(String[] data) {
+	private Map<Character, List<Condition>> initConditions(String[] data) { //모든 조건 생성 (key, 항상 낮은 알파벳)
 		Map<Character, List<Condition>> result = new HashMap<>();
 		for (String d : data) {
 			char from = d.charAt(0);
@@ -56,33 +50,30 @@ public class 단체사진찍기 {
 		return result;
 	}
 
-	private void dfs(Queue<Character> q, Map<Character, List<Condition>> conditions) {
-		if (q.size() == 8) {
-			Map<Character, Integer> temp = new HashMap<>(); //q에 있는 순서대로 해당 위치를 초기화
-			LinkedList<Character> convertedQ = (LinkedList<Character>) q;
-			for (int i = 0; i < convertedQ.size(); i++) temp.put(convertedQ.get(i), i);
+	private void dfs(int cnt, Map<Character, List<Condition>> conditions, int max) {
+		if (cnt == max) {
+			Map<Character, Integer> temp = new HashMap<>();
+			for (int i = 0; i < max; i++) temp.put(result[i], i);
 
-			for (Character c : convertedQ) { //q에 있는 사람 순으로, 모든 조건에 적합하면 카운트
-				if (!conditions.containsKey(c)) continue;
-				for (Condition condition : conditions.get(c)) {
-					if (!condition.isPossible(temp.get(c), temp.get(condition.to))) return;
+			for (int i = 0; i < max; i++) {
+				if (!conditions.containsKey(result[i])) continue;
+				for (Condition condition : conditions.get(result[i])) {
+					if (condition.impossible(i, temp.get(condition.to))) return;
 				}
 			}
 			count++;
 		}
 
-		for (Character c : people.keySet()) {
-			int idx = people.get(c);
-			if (visited[idx]) continue;
-			visited[idx] = true;
-			q.offer(c);
-			dfs(q, conditions);
-			q.remove(c);
-			visited[idx] = false;
+		for (int i = 0; i < max; i++) {
+			if (visited[i]) continue;
+			visited[i] = true;
+			result[cnt] = friends[i];
+			dfs(cnt + 1, conditions, max);
+			visited[i] = false;
 		}
 	}
 
-	class Condition {
+	static class Condition {
 		char to;
 		int distance;
 		char symbol;
@@ -93,12 +84,12 @@ public class 단체사진찍기 {
 			this.symbol = symbol;
 		}
 
-		public boolean isPossible(int c1, int c2) {
+		public boolean impossible(int c1, int c2) {
 			int distance = Math.abs(c1 - c2) - 1;
 
-			if (symbol == '=') return this.distance == distance;
-			else if (symbol == '>') return this.distance > distance;
-			else return this.distance < distance;
+			if (symbol == '=') return !(distance == this.distance);
+			else if (symbol == '>') return !(distance > this.distance);
+			else return !(distance < this.distance);
 		}
 	}
 }
