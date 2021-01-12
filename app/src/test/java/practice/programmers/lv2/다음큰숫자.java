@@ -11,6 +11,12 @@ public class 다음큰숫자 {
 		Assertions.assertEquals(solution, 83);
 	}
 
+	@Test
+	void test2() {
+		int solution = solution2(78);
+		Assertions.assertEquals(solution, 83);
+	}
+
 	/**
 	 * [문제] https://programmers.co.kr/learn/courses/30/lessons/12911
 	 * [분류] 2진수
@@ -40,5 +46,11 @@ public class 다음큰숫자 {
 			if (count > cnt) return true;
 		}
 		return count != cnt;
+	}
+
+	public int solution2(int n) {
+		int cnt = Integer.bitCount(n);
+		while (Integer.bitCount(++n) != cnt) {}
+		return n;
 	}
 }
