@@ -15,6 +15,14 @@ public class 파일명정렬_3차 {
 		System.out.println(Arrays.toString(solution));
 	}
 
+	/**
+	 * [문제] https://programmers.co.kr/learn/courses/30/lessons/17686
+	 * [분류] 구현
+	 * [조건] head, number, index 순으로 정렬하라.
+	 *
+	 * @param files 파일명
+	 * @return 파일명을 정렬하여 반환하라.
+	 */
 	public String[] solution(String[] files) {
 		String[] result = new String[files.length];
 		List<File> convertedFiles = init(files);
