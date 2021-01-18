@@ -77,17 +77,11 @@ public class 방금그곡_3차 {
 
 		private int getTime(String startTime, String endTime) {
 			String[] convertedStartTime = startTime.split(":");
-			int startHour = Integer.parseInt(convertedStartTime[0]);
-			int startMinute = Integer.parseInt(convertedStartTime[1]);
-
 			String[] convertedEndTime = endTime.split(":");
-			int endHour = Integer.parseInt(convertedEndTime[0]);
-			int endMinute = Integer.parseInt(convertedEndTime[1]);
 
-			if (startHour == endHour) return endMinute - startMinute;
-			else if (startMinute > endMinute) return ((endHour - startHour) * 60) - (startMinute - endMinute);
-			else if (startMinute < endMinute) return ((endHour - startHour) * 60) + (endMinute - startMinute);
-			return (endHour - startHour) * 60;
+			int start = (Integer.parseInt(convertedStartTime[0]) * 60) + Integer.parseInt(convertedStartTime[1]);
+			int end = (Integer.parseInt(convertedEndTime[0]) * 60) + Integer.parseInt(convertedEndTime[1]);
+			return end - start;
 		}
 
 		public boolean possible(String m) {
