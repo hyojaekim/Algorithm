@@ -1,28 +1,59 @@
-package practice;
+package practice.boj.graph;
+
+import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
-public class Main {
+public class BOJ11780 {
 
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		int n = Integer.parseInt(sc.nextLine());
-		int m = Integer.parseInt(sc.nextLine());
+	@Test
+	void test() {
+		solution(5, 14, new int[][]{
+						{1, 2, 2},
+						{1, 3, 3},
+						{1, 4, 1},
+						{1, 5, 10},
+						{2, 4, 2},
+						{3, 4, 1},
+						{3, 5, 1},
+						{4, 5, 3},
+						{3, 5, 10},
+						{3, 1, 8},
+						{1, 4, 2},
+						{5, 1, 7},
+						{3, 4, 2},
+						{5, 2, 4},
+		});
+	}
 
-		int[][] board = new int[m][3];
-		for (int i = 0; i < m; i++) {
-			String[] line = sc.nextLine().split(" ");
-			board[i][0] = Integer.parseInt(line[0]);
-			board[i][1] = Integer.parseInt(line[1]);
-			board[i][2] = Integer.parseInt(line[2]);
-		}
-
-		Main main = new Main();
-		main.solution(n, m, board);
+	@Test
+	void input() {
+//		Scanner sc = new Scanner(System.in);
+//		int n = Integer.parseInt(sc.nextLine());
+//		int m = Integer.parseInt(sc.nextLine());
+//
+//		int[][] board = new int[m][3];
+//		for (int i = 0; i < m; i++) {
+//			String[] line = sc.nextLine().split(" ");
+//			board[i][0] = Integer.parseInt(line[0]);
+//			board[i][1] = Integer.parseInt(line[1]);
+//			board[i][2] = Integer.parseInt(line[2]);
+//		}
+//
+//		Main main = new Main();
+//		main.solution(n, m, board);
 	}
 
 	int INF = 10000005;
 
+	/**
+	 * [문제] https://www.acmicpc.net/problem/11780
+	 * [분류] 플루이드 와샬 알고리즘
+	 *
+	 * @param n 정점 개수
+	 * @param e 간선 길이
+	 * @param info [0]->[1] 가중치:[2]
+	 */
 	public void solution(int n, int e, int[][] info) {
 		int[][] board = new int[n][n]; //초기화
 		for (int i = 0; i < n; i++) {
