@@ -24,7 +24,7 @@ public class FloydWarshall {
 		for (int k = 0; k < n; k++) {
 			for (int i = 0; i < n; i++) {
 				for (int j = 0; j < n; j++) {
-					if (board[i][k] + board[k][j] < board[i][j]) board[i][j] = 1;
+					if (board[i][k] + board[k][j] < board[i][j]) board[i][j] = board[i][k] + board[k][j];
 				}
 			}
 		}
