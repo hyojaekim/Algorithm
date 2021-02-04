@@ -1,28 +1,52 @@
-package practice;
+package practice.boj.graph;
 
-import java.util.*;
+import org.junit.jupiter.api.Test;
 
-public class Main {
+import java.util.PriorityQueue;
 
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		String[] firstLine = sc.nextLine().split(" ");
-		int n = Integer.parseInt(firstLine[0]);
-		int m = Integer.parseInt(firstLine[1]);
+public class BOJ1389 {
 
-		int[][] board = new int[m][2];
-		for (int i = 0; i < m; i++) {
-			String[] line = sc.nextLine().split(" ");
-			board[i][0] = Integer.parseInt(line[0]);
-			board[i][1] = Integer.parseInt(line[1]);
-		}
-
-		Main main = new Main();
-		main.solution(n, m, board);
+	@Test
+	void test() {
+		solution(5, 5, new int[][]{
+						{1, 3},
+						{1, 4},
+						{4, 5},
+						{4, 3},
+						{3, 2}
+		});
 	}
+
+	@Test
+	void input() {
+//		Scanner sc = new Scanner(System.in);
+//		String[] firstLine = sc.nextLine().split(" ");
+//		int n = Integer.parseInt(firstLine[0]);
+//		int m = Integer.parseInt(firstLine[1]);
+//
+//		int[][] board = new int[m][2];
+//		for (int i = 0; i < m; i++) {
+//			String[] line = sc.nextLine().split(" ");
+//			board[i][0] = Integer.parseInt(line[0]);
+//			board[i][1] = Integer.parseInt(line[1]);
+//		}
+//
+//		Main main = new Main();
+//		main.solution(n, m, board);
+	}
+
+
 
 	int INF = 10000005;
 
+	/**
+	 * [문제] https://www.acmicpc.net/problem/1389
+	 * [분류] 플루이드 와샬 알골즘
+	 *
+	 * @param N 유저수 (정점 개수)
+	 * @param M 친구관계수 (간선 개수)
+	 * @param friendshipNetwork [0] - [1] 친구 관계
+	 */
 	public void solution(int N, int M, int[][] friendshipNetwork) {
 		int[][] board = new int[N][N]; //board 초기화
 		for (int i = 0; i < N; i++) {
