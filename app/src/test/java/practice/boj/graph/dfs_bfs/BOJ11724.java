@@ -1,26 +1,37 @@
-package practice;
+package practice.boj.graph.dfs_bfs;
 
-import java.util.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-public class Main {
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		String[] firstLine = sc.nextLine().split(" ");
-		int n = Integer.parseInt(firstLine[0]);
-		int m = Integer.parseInt(firstLine[1]);
+public class BOJ11724 {
 
-		int[][] board = new int[m][2];
-		for (int i = 0; i < m; i++) {
-			String[] line = sc.nextLine().split(" ");
-			board[i][0] = Integer.parseInt(line[0]);
-			board[i][1] = Integer.parseInt(line[1]);
-		}
+	@Test
+	void test() {
+		int result = solution(6, 5, new int[][]{
+						{1, 2},
+						{2, 5},
+						{5, 1},
+						{3, 4},
+						{4, 6}
+		});
 
-		Main main = new Main();
-		System.out.println(main.solution(n, m, board));
+		Assertions.assertEquals(result, 2);
 	}
 
+	/**
+	 * [문제] https://www.acmicpc.net/problem/11724
+	 * [분류] DFS & BFS
+	 *
+	 * @param N       정점 개수
+	 * @param M       간선 개수
+	 * @param reqInfo [0] -> [1]
+	 * @return 연결된 개수
+	 */
 	public int solution(int N, int M, int[][] reqInfo) {
 		int result = 0;
 		Map<Integer, List<Integer>> graph = init(N, M, reqInfo); //그래프 초기화
