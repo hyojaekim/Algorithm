@@ -1,20 +1,19 @@
-package practice;
+package practice.boj.graph.dfs_bfs;
 
 import java.util.*;
 
-public class Main {
+public class BOJ1707 {
 
-	public static void main(String[] args) {
-		Main main = new Main();
-		main.solution();
-	}
-
+	/**
+	 * [문제] https://www.acmicpc.net/problem/1707
+	 * [분류] DFS & BFS - 이분 그래프
+	 */
 	public void solution() {
 		Scanner sc = new Scanner(System.in);
 		int k = Integer.parseInt(sc.nextLine());
 
 		for (int i = 0; i < k; i++) {
-			String result = "YES";
+			boolean possible = true;
 			String[] firstLine = sc.nextLine().split(" ");
 			int V = Integer.parseInt(firstLine[0]);
 			int E = Integer.parseInt(firstLine[1]);
@@ -30,17 +29,17 @@ public class Main {
 
 			for (int j = 1; j <= V; j++) {
 				if (visited[j]) continue;
-				if (bfs(visited, color, graph, j).equals("NO")) {
-					result = "NO";
+				if (!bfs(visited, color, graph, j)) {
+					possible = false;
 					break;
 				}
 			}
+			String result = possible ? "YES" : "NO";
 			System.out.println(result);
 		}
 	}
 
-	private String bfs(boolean[] visited, boolean[] color, Map<Integer, List<Integer>> graph, int start) {
-		String result = "YES";
+	private boolean bfs(boolean[] visited, boolean[] color, Map<Integer, List<Integer>> graph, int start) {
 		Queue<Integer> q = new LinkedList<>();
 		q.offer(start);
 		visited[start] = true;
@@ -52,7 +51,7 @@ public class Main {
 			//방문했는데 -> 인접한 노드가 같은 색깔이면 NO
 			for (Integer node : graph.get(cur)) {
 				if (visited[node]) {
-					if (color[cur] == color[node]) return "NO";
+					if (color[cur] == color[node]) return false;
 				} else {
 					visited[node] = true;
 					color[node] = !color[cur];
@@ -60,7 +59,7 @@ public class Main {
 				}
 			}
 		}
-		return result;
+		return true;
 	}
 
 	private Map<Integer, List<Integer>> init(int v, int e, int[][] reqInfo) {
