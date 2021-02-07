@@ -5,74 +5,66 @@ import java.util.*;
 public class Main {
 
 	public static void main(String[] args) {
-		Main main = new Main();
-		main.solution();
-	}
-
-	public void solution() {
 		Scanner sc = new Scanner(System.in);
-		int k = Integer.parseInt(sc.nextLine());
+		String[] firstLine = sc.nextLine().split(" ");
+		int v = Integer.parseInt(firstLine[0]);
+		int e = Integer.parseInt(firstLine[1]);
 
-		for (int i = 0; i < k; i++) {
-			String result = "YES";
-			String[] firstLine = sc.nextLine().split(" ");
-			int V = Integer.parseInt(firstLine[0]);
-			int E = Integer.parseInt(firstLine[1]);
-			int[][] reqInfo = new int[E][2];
-			for (int j = 0; j < E; j++) {
-				String[] line = sc.nextLine().split(" ");
-				reqInfo[j][0] = Integer.parseInt(line[0]);
-				reqInfo[j][1] = Integer.parseInt(line[1]);
-			}
-			Map<Integer, List<Integer>> graph = init(V, E, reqInfo);
-			boolean[] visited = new boolean[V + 1];
-			boolean[] color = new boolean[V + 1];
-
-			for (int j = 1; j <= V; j++) {
-				if (visited[j]) continue;
-				if (bfs(visited, color, graph, j).equals("NO")) {
-					result = "NO";
-					break;
-				}
-			}
-			System.out.println(result);
+		int[][] reqInfo = new int[e][3];
+		for (int i = 0; i < e; i++) {
+			String[] line = sc.nextLine().split(" ");
+			reqInfo[i][0] = Integer.parseInt(line[0]);
+			reqInfo[i][1] = Integer.parseInt(line[1]);
+			reqInfo[i][2] = Integer.parseInt(line[2]);
 		}
+
+		Main main = new Main();
+		int result = main.solution(v, e, reqInfo);
+		System.out.println(result);
 	}
 
-	private String bfs(boolean[] visited, boolean[] color, Map<Integer, List<Integer>> graph, int start) {
-		String result = "YES";
-		Queue<Integer> q = new LinkedList<>();
-		q.offer(start);
-		visited[start] = true;
-		color[start] = true;
+	public int solution(int v, int e, int[][] reqInfo) {
+		int[][] graph = initGraph(v, e, reqInfo);
+		floydWarshall(v, graph);
 
-		while (!q.isEmpty()) {
-			Integer cur = q.poll();
-
-			//방문했는데 -> 인접한 노드가 같은 색깔이면 NO
-			for (Integer node : graph.get(cur)) {
-				if (visited[node]) {
-					if (color[cur] == color[node]) return "NO";
-				} else {
-					visited[node] = true;
-					color[node] = !color[cur];
-					q.offer(node);
+		int result = INF;
+		for (int i = 0; i < v; i++) {
+			for (int j = 0; j < v; j++) {
+				if (graph[i][j] != INF && graph[j][i] != INF) {
+					result = Math.min(result, graph[i][j] + graph[j][i]);
 				}
 			}
 		}
-		return result;
+		return result == INF ? -1 : result;
 	}
 
-	private Map<Integer, List<Integer>> init(int v, int e, int[][] reqInfo) {
-		Map<Integer, List<Integer>> result = new HashMap<>();
-		for (int i = 1; i <= v; i++) {
-			result.put(i, new LinkedList<>());
+	int INF = 50000000;
+
+	private int[][] initGraph(int v, int e, int[][] reqInfo) {
+		int[][] result = new int[v][v];
+		for (int i = 0; i < v; i++) {
+			for (int j = 0; j < v; j++) {
+				result[i][j] = INF;
+			}
 		}
 
 		for (int i = 0; i < e; i++) {
-			result.get(reqInfo[i][0]).add(reqInfo[i][1]);
-			result.get(reqInfo[i][1]).add(reqInfo[i][0]);
+			int x = reqInfo[i][0] - 1;
+			int y = reqInfo[i][1] - 1;
+			int c = reqInfo[i][2];
+			result[x][y] = Math.min(result[x][y], c);
 		}
 		return result;
+	}
+
+	private void floydWarshall(int v, int[][] graph) {
+		for (int k = 0; k < v; k++) {
+			for (int i = 0; i < v; i++) {
+				for (int j = 0; j < v; j++) {
+					if (i == j) continue;
+					if (graph[i][j] > graph[i][k] + graph[k][j]) graph[i][j] = graph[i][k] + graph[k][j];
+				}
+			}
+		}
 	}
 }
