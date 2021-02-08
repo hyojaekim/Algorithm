@@ -5,66 +5,45 @@ import java.util.*;
 public class Main {
 
 	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		String[] firstLine = sc.nextLine().split(" ");
-		int v = Integer.parseInt(firstLine[0]);
-		int e = Integer.parseInt(firstLine[1]);
-
-		int[][] reqInfo = new int[e][3];
-		for (int i = 0; i < e; i++) {
-			String[] line = sc.nextLine().split(" ");
-			reqInfo[i][0] = Integer.parseInt(line[0]);
-			reqInfo[i][1] = Integer.parseInt(line[1]);
-			reqInfo[i][2] = Integer.parseInt(line[2]);
-		}
-
 		Main main = new Main();
-		int result = main.solution(v, e, reqInfo);
-		System.out.println(result);
+
+		Scanner sc = new Scanner(System.in);
+		int testCaseCount = Integer.parseInt(sc.nextLine());
+
+		for (int i = 0; i < testCaseCount; i++) {
+			int n = Integer.parseInt(sc.nextLine());
+			String[] spl = sc.nextLine().split(" ");
+			int[] numbers = new int[spl.length];
+			for (int j = 0; j < spl.length; j++) {
+				numbers[j] = Integer.parseInt(spl[j]);
+			}
+			System.out.println(main.solution(n, numbers));
+		}
 	}
 
-	public int solution(int v, int e, int[][] reqInfo) {
-		int[][] graph = initGraph(v, e, reqInfo);
-		floydWarshall(v, graph);
-
-		int result = INF;
-		for (int i = 0; i < v; i++) {
-			for (int j = 0; j < v; j++) {
-				if (graph[i][j] != INF && graph[j][i] != INF) {
-					result = Math.min(result, graph[i][j] + graph[j][i]);
-				}
-			}
+	int[] graph;
+	boolean[] visited;
+	public int solution(int n, int[] numbers) {
+		int result = 0;
+		this.graph = new int[n + 1];
+		for (int i = 0; i < n; i++) {
+			int number = numbers[i];
+			this.graph[i + 1] = number;
 		}
-		return result == INF ? -1 : result;
-	}
+		this.visited = new boolean[n + 1];
 
-	int INF = 50000000;
-
-	private int[][] initGraph(int v, int e, int[][] reqInfo) {
-		int[][] result = new int[v][v];
-		for (int i = 0; i < v; i++) {
-			for (int j = 0; j < v; j++) {
-				result[i][j] = INF;
-			}
-		}
-
-		for (int i = 0; i < e; i++) {
-			int x = reqInfo[i][0] - 1;
-			int y = reqInfo[i][1] - 1;
-			int c = reqInfo[i][2];
-			result[x][y] = Math.min(result[x][y], c);
+		for (int num = 1; num <= n; num++) {
+			if (visited[num]) continue;
+			result++;
+			dfs(num);
 		}
 		return result;
 	}
 
-	private void floydWarshall(int v, int[][] graph) {
-		for (int k = 0; k < v; k++) {
-			for (int i = 0; i < v; i++) {
-				for (int j = 0; j < v; j++) {
-					if (i == j) continue;
-					if (graph[i][j] > graph[i][k] + graph[k][j]) graph[i][j] = graph[i][k] + graph[k][j];
-				}
-			}
-		}
+	private void dfs(int num) {
+		if (visited[num] || graph[num] == 0) return;
+
+		visited[num] = true;
+		dfs(graph[num]);
 	}
 }
