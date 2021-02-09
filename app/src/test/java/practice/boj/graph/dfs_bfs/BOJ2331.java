@@ -1,17 +1,14 @@
-package practice;
+package practice.boj.graph.dfs_bfs;
 
-import java.util.*;
+import org.junit.jupiter.api.Test;
 
-public class Main {
+import java.util.HashMap;
+import java.util.Map;
 
-	public static void main(String[] args) {
-		Main main = new Main();
-
-		Scanner sc = new Scanner(System.in);
-		String[] line = sc.nextLine().split(" ");
-		int A = Integer.parseInt(line[0]);
-		int P = Integer.parseInt(line[1]);
-		main.solution(A, P);
+public class BOJ2331 {
+	@Test
+	void test() {
+		solution(57, 2);
 	}
 
 	int[] nums;
