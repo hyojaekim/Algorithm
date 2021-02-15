@@ -2,8 +2,40 @@
 .gradle
 .idea
 
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# ETC
+.gitattributes
+.gitattributes/
+.gitattributes/*
+*/.gitattributes
+settings.gradle
+gradlew.bat
+gradlew
+
 # Ignore Gradle build output directory
 build
 **/realtest
 **/temp
 **/sample
+**/src/main
+/gradle
