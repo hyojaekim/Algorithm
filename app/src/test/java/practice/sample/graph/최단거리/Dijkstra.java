@@ -1,4 +1,4 @@
-package practice.sample.dijkstra;
+package practice.sample.graph.최단거리;
 
 import java.util.*;
 
