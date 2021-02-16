@@ -1,4 +1,4 @@
-package practice.programmers.kakao_2020;
+package practice.programmers.kakao_2019_internship;
 
 import java.util.HashSet;
 import java.util.LinkedList;

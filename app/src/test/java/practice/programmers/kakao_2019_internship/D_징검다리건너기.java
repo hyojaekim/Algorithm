@@ -1,4 +1,4 @@
-package practice.programmers.kakao_2020;
+package practice.programmers.kakao_2019_internship;
 
 public class D_징검다리건너기 {
 
