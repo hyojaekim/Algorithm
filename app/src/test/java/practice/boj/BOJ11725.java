@@ -13,6 +13,16 @@ public class BOJ11725 {
 		Assertions.assertArrayEquals(solution, new int[]{4, 6, 1, 3, 1, 4});
 	}
 
+
+	/**
+	 * [문제] https://www.acmicpc.net/problem/11725
+	 * [분류] 그래프, DFS
+	 *
+	 * @param n 정점 개수
+	 * @param info 간선 정보
+	 * @return 2부터 n까지 부모 노드 반환
+	 */
+
 	public int[] solution(int n, int[][] info) {
 		Map<Integer, List<Integer>> graph = init(n, info);
 
