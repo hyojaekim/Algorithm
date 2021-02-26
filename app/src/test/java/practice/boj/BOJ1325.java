@@ -26,6 +26,9 @@ public class BOJ1325 {
 	 * [문제] https://www.acmicpc.net/problem/1325
 	 * [분류] 그래프, DFS, BFS
 	 *
+	 * 1. 입출력에 대한 시간 초과
+	 * 2. DFS -> 시간초과
+	 *
 	 * @param n 정점 개수
 	 * @param info 간선 정보
 	 * @return 어떤 컴퓨터를 해킹해야 가장 많이 해킹 할 수 있는지 해당 컴퓨터들을 반환
@@ -37,7 +40,7 @@ public class BOJ1325 {
 		boolean[] visited;
 		for (int node = 1; node <= n; node++) {
 			visited = new boolean[n + 1];
-			dfs(node, graph, visited);
+			bfs(node, graph, visited);
 		}
 
 		for (int node = 1; node <= n; node++) {
@@ -50,7 +53,7 @@ public class BOJ1325 {
 		return result;
 	}
 
-	private void dfs(int start, Map<Integer, List<Integer>> graph, boolean[] visited) {
+	private void bfs(int start, Map<Integer, List<Integer>> graph, boolean[] visited) {
 		Queue<Integer> q = new LinkedList<>();
 		q.offer(start);
 		visited[start] = true;
