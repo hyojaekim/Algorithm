@@ -11,14 +11,14 @@ public class BOJ16954 {
 	@Test
 	void test5() {
 		char[][] board = new char[][]{
-						{'.','.','.','.','.','.','.','.'},
-						{'.','.','.','.','.','.','.','.'},
-						{'.','.','.','.','.','.','.','.'},
-						{'.','.','.','.','.','.','.','.'},
-						{'#','.','.','.','.','.','.','.'},
-						{'.','#','#','#','#','#','#','#'},
-						{'#','.','.','.','.','.','.','.'},
-						{'.','.','.','.','.','.','.','.'}
+						{'.', '.', '.', '.', '.', '.', '.', '.'},
+						{'.', '.', '.', '.', '.', '.', '.', '.'},
+						{'.', '.', '.', '.', '.', '.', '.', '.'},
+						{'.', '.', '.', '.', '.', '.', '.', '.'},
+						{'#', '.', '.', '.', '.', '.', '.', '.'},
+						{'.', '#', '#', '#', '#', '#', '#', '#'},
+						{'#', '.', '.', '.', '.', '.', '.', '.'},
+						{'.', '.', '.', '.', '.', '.', '.', '.'}
 		};
 
 		int solution = solution(board);
@@ -43,24 +43,24 @@ public class BOJ16954 {
 	public int solution(char[][] board) {
 		int max = 8;
 		boolean[][][] wall = init(board, max);
-		Queue<Point> q = new LinkedList<>();
-		q.offer(new Point(7, 0, 0));
+		Queue<Person> q = new LinkedList<>();
+		q.offer(new Person(7, 0, 0)); //왼쪽 아래에서 출발
 
 		while (!q.isEmpty()) {
-			Point cur = q.poll();
+			Person cur = q.poll();
 
-			if (cur.time < max && wall[cur.x][cur.y][cur.time]) continue;
-			if (cur.x == 0 && cur.y == 7) return 1;
+			if (cur.time >= max || cur.x == 0 && cur.y == 7) return 1; //8초 이상이거나 오른쪽 위로 도착하면 가능한 것으로 판단
+			if (wall[cur.x][cur.y][cur.time]) continue; //해당 시간에 벽이 존재하면 다른 방향은 확인하지 않는다.
 
-			for (int i = 0; i < max; i++) {
+			for (int i = 0; i < max; i++) { //상하좌우, 대각선 확인
 				int nx = cur.x + dx[i];
 				int ny = cur.y + dy[i];
 
-				if (nx < 0 || ny < 0 || nx >= max || ny >= max) continue;
-				if (cur.time < max && (wall[nx][ny][cur.time] || cur.time + 1 >= max || wall[nx][ny][cur.time + 1])) continue;
-				q.offer(new Point(nx, ny, cur.time + 1));
+				if (nx < 0 || ny < 0 || nx >= max || ny >= max) continue; //범위 벗어나는지 확인하기
+				if (wall[nx][ny][cur.time]) continue; //해당 시간에 벽이 존재하는 확인
+				q.offer(new Person(nx, ny, cur.time + 1));
 			}
-			if (cur.time < max) q.offer(new Point(cur.x, cur.y, cur.time + 1));
+			q.offer(new Person(cur.x, cur.y, cur.time + 1)); //시간을 늘리고, 움직이지 않는 경우 큐에 넣기
 		}
 		return 0;
 	}
@@ -70,21 +70,22 @@ public class BOJ16954 {
 
 		for (int i = 0; i < max; i++) {
 			for (int j = 0; j < max; j++) {
-				if (board[i][j] == '.') continue;
-				int time = 0;
-				for (int k = i; k < max; k++) {
-					result[k][j][time] = true;
-					time++;
+
+				if (board[i][j] == '#') { //맨 아래까지 벽을 이동하여 시간을 체크한다.
+					int time = 0;
+					for (int k = i; k < max; k++) {
+						result[k][j][time++] = true;
+					}
 				}
 			}
 		}
 		return result;
 	}
 
-	class Point {
-		int x, y, time;
+	static class Person {
+		int x, y, time; //x,y 좌표와 현재 시간
 
-		public Point(int x, int y, int time) {
+		public Person(int x, int y, int time) {
 			this.x = x;
 			this.y = y;
 			this.time = time;
