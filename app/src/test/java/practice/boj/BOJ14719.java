@@ -15,32 +15,35 @@ public class BOJ14719 {
 		Assertions.assertEquals(solution, 5);
 	}
 
+	/**
+	 * [문제] https://www.acmicpc.net/problem/14719
+	 * [분류] 구현, 시뮬레이션
+	 * [풀이]
+	 * 1. 블럭의 크기가 가장 큰 순서로 정렬한다.
+	 * 2. 현재 위치에서 왼쪽, 오른쪽에서 가장 블록이 큰 위치를 선택한다.
+	 * 3. 가장 작은 블럭 - 현재 위치의 블록 개수를 계산한다. (0 이하 카운트 x)
+	 *
+	 * @param h 세로 길이
+	 * @param w 가로 길이
+	 * @param blockInfo 블럭 개수
+	 * @return 빗물이 고이는 구역의 개수를 구하라
+	 */
 	public int solution(int h, int w, int[] blockInfo) {
 		int count = 0;
-		List<Integer> sortedBlockIndex = sortBlocks(blockInfo);
-		for (int i = 0; i < sortedBlockIndex.size(); i++) {
-			int curIndex = sortedBlockIndex.get(i);
-			if (blockInfo[curIndex] == 0) break;
-			for (int j = i + 1; j < sortedBlockIndex.size(); j++) {
-				int nextIndex = sortedBlockIndex.get(j);
-				if (blockInfo[nextIndex] == 0) break;
+		List<Integer> sortedBlockIndex = sort(blockInfo);
 
-				int max = Math.max(curIndex, nextIndex);
-				int min = Math.min(curIndex, nextIndex);
-				int height = blockInfo[nextIndex];
+		for (int i = 0; i < w; i++) {
+			int maxRightIndex = findMaxIndex(i + 1, w, i, blockInfo, sortedBlockIndex);
+			int maxLeftIndex = findMaxIndex(0, i, i, blockInfo, sortedBlockIndex);
+			if (maxRightIndex == -1 || maxLeftIndex == -1) continue;
 
-				List<Integer> temp = new ArrayList<>();
-				for (int k = min + 1; k < max; k++) {
-					temp.add(k);
-					count += height - blockInfo[k];
-				}
-				sortedBlockIndex.removeAll(temp);
-			}
+			int height = Math.min(blockInfo[maxRightIndex], blockInfo[maxLeftIndex]);
+			count += Math.max(height - blockInfo[i], 0);
 		}
 		return count;
 	}
 
-	public List<Integer> sortBlocks(int[] blocks) {
+	public List<Integer> sort(int[] blocks) {
 		List<Integer> result = new ArrayList<>();
 		for (int i = 0; i < blocks.length; i++) {
 			result.add(i);
@@ -48,9 +51,19 @@ public class BOJ14719 {
 
 		result.sort((o1, o2) -> {
 			int num = blocks[o2] - blocks[o1];
-			if (num == 0) return o1 - o2;
-			else return num;
+			return num == 0 ? o1 - o2 : num;
 		});
 		return result;
+	}
+
+	private int findMaxIndex(int start, int end, int curIndex, int[] blockInfo, List<Integer> sortedBlockIndex) {
+		if (start < 0 || end > sortedBlockIndex.size()) return -1;
+
+		for (Integer index : sortedBlockIndex) {
+			if (index < start || index >= end) continue;
+			if (blockInfo[index] <= blockInfo[curIndex]) continue;
+			return index;
+		}
+		return -1;
 	}
 }
