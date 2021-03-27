@@ -64,7 +64,7 @@ public class BOJ16236 {
 	/**
 	 * [문제] https://www.acmicpc.net/problem/16236
 	 * [분류] 시뮬레이션, 그래프, BFS
-	 * 
+	 *
 	 * @param n NxN
 	 * @param map 0:빈칸, 1~6:물고기
 	 * @param shark 상어 위치 및 사이즈
