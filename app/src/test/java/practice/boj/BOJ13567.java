@@ -6,7 +6,7 @@ public class BOJ13567 {
 
 	@Test
 	void test() {
-		String solution = solution(11, 14, new String[]{
+		solution(11, 14, new String[]{
 						"MOVE 10",
 						"TURN 0",
 						"MOVE 2",
@@ -22,51 +22,81 @@ public class BOJ13567 {
 						"TURN 0",
 						"MOVE 6"
 		});
-
-		System.out.println(solution);
 	}
 
-	int[] dx = {0, 1, 0, -1};
-	int[] dy = {1, 0, -1, 0};
-	public String solution(int m, int n, String[] commands) {
-		Robot robot = new Robot(m - 1, 0, 0);
+	int[][] dx = {{0, -1, 0, 1}, {0, 1, 0, -1}};
+	int[][] dy = {{1, 0, -1, 0}, {1, 0, -1, 0}};
 
-		for (String command : commands) {
-			String[] split = command.split(" ");
+	/**
+	 * [문제] https://www.acmicpc.net/problem/13567
+	 * [분류] 시뮬레이션
+	 *
+	 * @param M MxM
+	 * @param n n개의 명령어
+	 * @param orders 명령어 TURN(0, 1), MOVE
+	 */
+	public void solution(int M, int n, String[] orders) {
+		Robot robot = new Robot(M - 1, 0, 0, 0);
+
+		for (String order : orders) {
+			String[] split = order.split(" ");
 			if (split[0].equals("MOVE")) {
-				if (robot.impossibleMove(m, split[1])) return "-1";
+				if (!robot.move(M, Integer.parseInt(split[1]))) {
+					System.out.println(-1);
+					return;
+				}
 			} else {
-				robot.rotate(split[1]);
+				robot.turn(split[1]);
 			}
 		}
-		return (robot.x + 1) + " " + (robot.y + 1);
+		System.out.println(robot.y + " " + (M - 1 - robot.x));
 	}
 
 	class Robot {
-		int x, y, dir;
+		int x, y;
+		int dir;
+		int leftOrRight;
 
-		public Robot(int x, int y, int dir) {
+		public Robot(int x, int y, int dir, int leftOrRight) {
 			this.x = x;
 			this.y = y;
 			this.dir = dir;
+			this.leftOrRight = leftOrRight;
 		}
 
-		public void rotate(String number) {
-			if (number.equals("1")) {
-				dir = (dir + 1 >= 4) ? 0 : dir + 1;
+		public boolean move(int M, int n) {
+			this.x += dx[leftOrRight][dir] * n;
+			this.y += dy[leftOrRight][dir] * n;
+			return x >= 0 && y >= 0 && x < M && y < M;
+		}
+
+		public void turn(String dir) {
+			if (dir.equals("0")) {
+				turnLeft();
 			} else {
-				dir = (dir - 1 < 0) ? 3 : dir - 1;
+				turnRight();
 			}
 		}
 
-		public boolean impossibleMove(int m, String num) {
-			int max = Integer.parseInt(num);
-			for (int i = 0; i < max; i++) {
-				x += dx[dir];
-				y += dy[dir];
-				if (x < 0 || y < 0 || x >= m || y >= m) return true;
+		public void turnLeft() {
+			if (leftOrRight == 1) {
+				if (dir == 1) dir = 3;
+				else if (dir == 3) dir = 1;
 			}
-			return false;
+
+			dir = (dir + 1 == 4) ? 0 : dir + 1;
+			leftOrRight = 0;
+		}
+
+
+		public void turnRight() {
+			if (leftOrRight == 0) {
+				if (dir == 1) dir = 3;
+				else if (dir == 3) dir = 1;
+			}
+
+			dir = (dir + 1 == 4) ? 0 : dir + 1;
+			leftOrRight = 1;
 		}
 	}
 }
