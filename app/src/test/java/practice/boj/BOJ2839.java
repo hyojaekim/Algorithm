@@ -1,32 +1,27 @@
 package practice.boj;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 class BOJ2839 {
-    public static void main(String[] args){
-        Scanner sc = new Scanner(System.in);
-        int num = sc.nextInt();
-        int result = -1, five = (num/5) * 5;
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int num = sc.nextInt();
+		int result = solution(num);
+		System.out.println(result);
+	}
 
-        if(num == 4 || num < 3){
-        }else if(num % 5 == 0){
-            result = num / 5;
-        }else{
-            while(true){
-                int n = num - five;
-                if(five == 0){
-                    if(num%3 == 0){
-                        result = num/3;
-                    }
-                    break;
-                }
-                if(n % 3 == 0){
-                    result = (five/5) + (n/3);
-                    break;
-                }
-                five = five - 5;
-            }
-        }
-        System.out.print(result);
-    }
+	public static int solution(int n) {
+		int[] dp = new int[5001];
+		int max = 100_000_000;
+		Arrays.fill(dp, max);
+		dp[3] = 1;
+		dp[5] = 1;
+
+		for (int i = 6; i <= n; i++) {
+			dp[i] = Math.min(dp[i - 3], dp[i - 5]) + 1;
+		}
+
+		return dp[n] >=  max ? -1 : dp[n];
+	}
 }
