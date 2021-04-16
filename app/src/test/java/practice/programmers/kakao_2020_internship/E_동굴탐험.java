@@ -17,7 +17,6 @@ public class E_동굴탐험 {
 			result.put(i, new ArrayList<>());
 		}
 
-		int pathSize = path.length;
 		for (int[] ints : path) { //양방향 그래프
 			int a = ints[0];
 			int b = ints[1];
