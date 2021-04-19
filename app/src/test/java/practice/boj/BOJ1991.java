@@ -1,19 +1,16 @@
 package practice.boj;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
 
 public class BOJ1991 {
 
 	@Test
 	void test() {
-		List<String> solution = solution(7, new String[]{
+		solution(7, new String[]{
 						"A B C",
 						"B D .",
 						"C E F",
@@ -22,10 +19,6 @@ public class BOJ1991 {
 						"D . .",
 						"G . .",
 		});
-
-		Assertions.assertEquals(solution.get(0), "ABDCEFG");
-		Assertions.assertEquals(solution.get(1), "DBAECFG");
-		Assertions.assertEquals(solution.get(2), "DBEGFCA");
 	}
 
 	public static void main(String[] args) throws IOException {
@@ -39,28 +32,19 @@ public class BOJ1991 {
 
 //		Main main = new Main();
 		BOJ1991 main = new BOJ1991();
-		List<String> solution = main.solution(n, info);
-		for (String s : solution) {
-			System.out.println(s);
-		}
+		main.solution(n, info);
 	}
 
-	public List<String> solution(int n, String[] info) {
-		List<String> result = new ArrayList<>();
+	public void solution(int n, String[] info) {
 		Node root = createBinaryTree(n, info);
 
-		StringBuilder sb = new StringBuilder();
-		root.preorder(sb);
-		result.add(sb.toString());
+		root.preorder();
+		System.out.println();
 
-		sb = new StringBuilder();
-		root.inorder(sb);
-		result.add(sb.toString());
+		root.inorder();
+		System.out.println();
 
-		sb = new StringBuilder();
-		root.postorder(sb);
-		result.add(sb.toString());
-		return result;
+		root.postorder();
 	}
 
 	private Node createBinaryTree(int n, String[] info) {
@@ -68,9 +52,10 @@ public class BOJ1991 {
 		for (String s : info) {
 			String[] split = s.split(" ");
 			Node node = root.find(split[0]);
-			if (node == null) continue;
-			if (!split[1].equals(".")) node.setLeft(split[1]);
-			if (!split[2].equals(".")) node.setRight(split[2]);
+			if (node != null) {
+				if (!split[1].equals(".")) node.setLeft(split[1]);
+				if (!split[2].equals(".")) node.setRight(split[2]);
+			}
 		}
 		return root;
 	}
@@ -98,22 +83,22 @@ public class BOJ1991 {
 			return null;
 		}
 
-		public void preorder(StringBuilder sb) {
-			sb.append(this.v);
-			if (this.left != null) this.left.preorder(sb);
-			if (this.right != null) this.right.preorder(sb);
+		public void preorder() {
+			System.out.print(this.v);
+			if (this.left != null) this.left.preorder();
+			if (this.right != null) this.right.preorder();
 		}
 
-		public void inorder(StringBuilder sb) {
-			if (this.left != null) this.left.inorder(sb);
-			sb.append(this.v);
-			if (this.right != null) this.right.inorder(sb);
+		public void inorder() {
+			if (this.left != null) this.left.inorder();
+			System.out.print(this.v);
+			if (this.right != null) this.right.inorder();
 		}
 
-		public void postorder(StringBuilder sb) {
-			if (this.left != null) this.left.postorder(sb);
-			if (this.right != null) this.right.postorder(sb);
-			sb.append(this.v);
+		public void postorder() {
+			if (this.left != null) this.left.postorder();
+			if (this.right != null) this.right.postorder();
+			System.out.print(this.v);
 		}
 
 		public void setLeft(String node) {
