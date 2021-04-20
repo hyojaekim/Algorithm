@@ -2,6 +2,10 @@ package practice.boj;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 public class BOJ9095 {
 
 	@Test
@@ -12,7 +16,19 @@ public class BOJ9095 {
 		}
 	}
 
-	public int[] solution() {
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int testCount = Integer.parseInt(br.readLine());
+		int[] dp = solution();
+
+		while (testCount > 0) {
+			testCount--;
+			int n = Integer.parseInt(br.readLine());
+			System.out.println(dp[n]);
+		}
+	}
+
+	public static int[] solution() {
 		int[] dp = new int[12];
 		dp[1] = 1;
 		dp[2] = 2;
