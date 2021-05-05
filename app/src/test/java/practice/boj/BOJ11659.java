@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 
 public class BOJ11659 {
 
-
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -25,11 +24,8 @@ public class BOJ11659 {
 			int i = Integer.parseInt(split[0]) - 1;
 			int j = Integer.parseInt(split[1]) - 1;
 
-			if (i == 0) {
-				System.out.println(numbers[j]);
-			} else {
-				System.out.println(numbers[j] - numbers[i - 1]);
-			}
+			int before = i == 0 ? 0 : numbers[i - 1];
+			System.out.println(numbers[j] - before);
 		}
 	}
 }
